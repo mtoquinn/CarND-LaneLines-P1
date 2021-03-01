@@ -15,7 +15,7 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/grayscale.jpg "Grayscale"
+[image1]: ./test_images_output/solidWhiteCurve.jpg
 
 ---
 
@@ -23,11 +23,11 @@ The goals / steps of this project are the following:
 
 ### 1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-My pipeline consisted of 5 steps. First, I converted the images to grayscale, then I .... 
+I used the basic pipeline from the lessons as a starting point. First, I grayscaled the image and then applied a gaussian blurring filter before running canny. Then I applied a mask before running it through a hough transform. Then the weighted_image function was applied and the result was output. 
 
-In order to draw a single line on the left and right lanes, I modified the draw_lines() function by ...
+To get a single line on on the left and right I found the average slope for each side by splitting the pts at the center of the mask. I then found the midpoint for each side and used that and the slope to find the point at the very bottom of the image and the top of the mask (denoted left_bot_x and left_top_x). I then added line from the bottom point to the midpoint and the midpoint to the top point for each side. 
 
-If you'd like to include images to show how the pipeline works, here is how to include an image: 
+In general it works well as a rudimentary system. Image was included to show how the system works 
 
 ![alt text][image1]
 
@@ -35,13 +35,11 @@ If you'd like to include images to show how the pipeline works, here is how to i
 ### 2. Identify potential shortcomings with your current pipeline
 
 
-One potential shortcoming would be what would happen when ... 
+A major potential shortcoming is how well this system would work on a sharp corner, I am not certain that it would keep the lines nearly as well as it does with the slight corners. 
 
-Another shortcoming could be ...
+There is some jutter with the line tracking, especially as the lines extend farther away from the midpoint. 
 
 
 ### 3. Suggest possible improvements to your pipeline
 
-A possible improvement would be to ...
-
-Another potential improvement could be to ...
+Fixing the jutter would be the first major improvement, I tried using multiple points along the line and did not get any better results. I am unsure at this time how to improve its performance. 
